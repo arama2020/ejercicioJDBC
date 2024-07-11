@@ -1,0 +1,131 @@
+<jasperReport 
+  xmlns="http://jasperreports.sourceforge.net/jasperreports"   
+  name="Listadodeentidades" pageWidth="600">
+  <parameter name="titulo" class="java.lang.String"/>
+  <parameter name="autor" class="java.lang.String"/>
+  <parameter name="fecha" class="java.lang.String"/>
+  <queryString>
+		<![CDATA[select CODENTIDAD, DESCRIPCION, DIRECCION, COUNT(CODIGOPROYECTO) as NUMPROYECTOS,	SUM(IMPORTEAPORTACION) as SUMAAPOR FROM ENTIDADES left JOIN PATROCINA USING (CODENTIDAD)  group by CODENTIDAD, DESCRIPCION, DIRECCION order by CODENTIDAD]]>
+   </queryString>
+  
+  <field name="CODENTIDAD" class="java.lang.String"/>
+  <field name="DESCRIPCION" class="java.lang.String"/>  
+  <field name="DIRECCION" class="java.lang.String"/>
+  <field name="NUMPROYECTOS" class="java.lang.Integer"/>
+   <field name="SUMAAPOR" class="java.lang.Float"/>
+  
+  <title>
+     <band height="60">
+	 <textField>
+		<reportElement x="0" y="0" width="600" height="40" />
+		<textElement textAlignment="Center"><font size="22"/>
+		</textElement>
+		<textFieldExpression><![CDATA[$P{titulo}]]>
+            </textFieldExpression>
+	 </textField>
+	 <textField>
+		<reportElement x="0" y="40" width="600" height="20" />
+		<textElement textAlignment="Center"/>
+		<textFieldExpression><![CDATA["Realizado por: " + $P{autor} +" on "+$P{fecha}]]></textFieldExpression>
+	   </textField>
+	</band>
+  </title>
+  
+  <columnHeader>
+	<band height="30">
+		<rectangle>
+			<reportElement x="0" y="0" width="550" height="25" />
+		</rectangle>
+		<staticText>
+			<reportElement x="5" y="5" width="80" height="15" />
+			<text><![CDATA[CODENTIDAD]]></text>
+		</staticText>
+		
+		<staticText>
+			<reportElement x="85" y="5" width="150" height="15" />
+			<text><![CDATA[DESCRIPCION]]></text>
+		</staticText>
+		
+		<staticText>
+               <reportElement x="235" y="5" width="150" height="15" />
+		   <text><![CDATA[DIRECCION]]></text>
+		</staticText>
+		
+		<staticText>
+		   <reportElement x="390" y="5" width="85" height="15" />
+		   <text><![CDATA[NUM PROYEC]]></text>
+		</staticText>
+		
+		<staticText>
+		   <reportElement x="475" y="5" width="85" height="15" />
+		   <text><![CDATA[SUMAAPOR]]></text>
+		</staticText>
+		
+		
+	</band>
+   </columnHeader>
+   
+   <detail>
+	<band height="30">
+	   <textField>
+		<reportElement x="5" y="7" width="100" height="15" />
+		<textFieldExpression><![CDATA[$F{CODENTIDAD}]]></textFieldExpression>
+	   </textField>
+	   <textField>
+		<reportElement x="85" y="7" width="150" height="15" />
+		<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+	   </textField>
+	   
+	   <textField>
+	   <reportElement x="235" y="5" width="150" height="15" />
+		<textFieldExpression><![CDATA[$F{DIRECCION}]]></textFieldExpression>
+	   </textField>	   
+	   <textField>
+		<reportElement x="400" y="5" width="85" height="15" />
+		<textFieldExpression><![CDATA[$F{NUMPROYECTOS}]]></textFieldExpression>
+	   </textField>	  
+	    <textField>
+		<reportElement x="485" y="5" width="85" height="15" />
+		<textFieldExpression><![CDATA[$F{SUMAAPOR}]]></textFieldExpression>
+	   </textField>	 
+	   
+	   
+	  
+	   
+	</band>
+  </detail>
+	
+  <pageFooter>
+	<band height="32">
+	  <line>
+		<reportElement positionType="FixRelativeToBottom" x="0" 
+                 y="3" width="600" height="1" />
+		<graphicElement>
+			<pen lineWidth="2.0" lineColor="#FF0000"/>
+		</graphicElement>
+	  </line>
+	  <textField>
+		<reportElement x="190" y="10" width="90" height="20" />
+		<textElement textAlignment="Right">
+				<font isBold="true" isItalic="true"/>
+		</textElement>
+		<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}]]></textFieldExpression>
+	  </textField>
+	  
+    </band>
+  </pageFooter>
+  
+  <summary>
+	<band height="60">
+	  <rectangle>
+		<reportElement x="0" y="0" width="550" height="25" />
+	  </rectangle>
+	  <textField>
+		<reportElement x="10" y="5" width="300" height="15" />
+		<textElement textAlignment="Left"/>
+		<textFieldExpression><![CDATA["Total Registros: " + String.valueOf($V{REPORT_COUNT})]]>
+            </textFieldExpression>
+        </textField>
+	</band>
+  </summary>
+</jasperReport>

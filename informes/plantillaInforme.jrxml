@@ -1,0 +1,119 @@
+<jasperReport 
+  xmlns="http://jasperreports.sourceforge.net/jasperreports"   
+  orientation="Landscape" pageWidth="842"
+  name="plantillaInforme" >
+
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="autor" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="dia" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT C.CODIGOCLIENTE, C.NOMBRECLIENTE, SUM(D.CANTIDAD * D.PRECIOUNIDAD) Importe, COUNT(DISTINCT P.CODIGOPEDIDO) Cantidad_Pedidos
+FROM CLIENTES C
+INNER JOIN PEDIDOS P ON P.CODIGOCLIENTE = C.CODIGOCLIENTE
+INNER JOIN DETALLEPEDIDOS D ON D.CODIGOPEDIDO = P.CODIGOPEDIDO
+GROUP BY C.CODIGOCLIENTE, C.NOMBRECLIENTE
+ORDER BY C.CODIGOCLIENTE]]>
+	</queryString>
+	<field name="CODIGOCLIENTE" class="java.lang.Integer"/>
+	<field name="NOMBRECLIENTE" class="java.lang.String"/>
+	<field name="Importe" class="java.lang.Integer"/>
+	<field name="Cantidad_Pedidos" class="java.lang.Integer"/>
+	<title>
+		<band height="60">
+			<textField>
+				<reportElement x="0" y="10" width="500" height="40" uuid="1f40f077-8f91-4ba1-b0c8-47503a070ea2"/>
+				<textElement textAlignment="Center">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["LISTADO DE LOS PEDIDOS DE LOS CLIENTES"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="500" height="20" uuid="7f2871a0-55d1-49d2-a6cb-7287609bd82c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Realizado por: " + $P{autor} + " el " + $P{dia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30">
+			<rectangle>
+				<reportElement x="0" y="0" width="525" height="25" uuid="b91ce3b2-ec8c-4fe7-b552-acda0394fd74"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="5" width="100" height="15" uuid="685f849f-e255-4d32-8274-d756c0799db2"/>
+				<text><![CDATA[Codigo Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="5" width="200" height="15" uuid="fe98aba3-4938-46e6-babe-b0a09e419f8e"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="5" width="100" height="15" uuid="b70b90f8-fee5-4f4e-a038-28d1b671986c"/>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="5" width="100" height="15" uuid="a5ac953b-d2ae-4c93-8313-a017db4245cc"/>
+				<text><![CDATA[Num Pedidos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30">
+			<textField>
+				<reportElement x="5" y="7" width="100" height="15" uuid="7b9decdf-eefb-4f44-b9f2-e3793d9bc187"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CODIGOCLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="7" width="200" height="15" uuid="e4475523-d8ee-4e4b-89b4-68182a7c58d1"/>
+				<textFieldExpression><![CDATA[$F{NOMBRECLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="7" width="100" height="15" uuid="fbef56ed-fd9c-4249-959c-fa0040c1b40a"/>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="7" width="100" height="15" uuid="f50a7dc9-691b-4f03-98ac-03c1cc9b8e97"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Cantidad_Pedidos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="32">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="550" height="1" uuid="a5c95449-e8e4-4c99-9f18-bfb1466da285"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#FF0000"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="200" y="10" width="90" height="20" uuid="a278a070-c860-41cc-9edd-9c7e7aee5574"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="290" y="10" width="40" height="20" uuid="61268eae-d02c-465f-8824-ba7eb93fd94b"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="60">
+			<rectangle>
+				<reportElement x="0" y="0" width="550" height="25" uuid="395d8122-5c91-4d7c-b68a-052cedb0c732"/>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="5" width="300" height="15" uuid="ddf97642-45c0-432e-9357-1129fd106d35"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Total Registros: " + String.valueOf($V{REPORT_COUNT})]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

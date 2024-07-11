@@ -1,0 +1,203 @@
+<jasperReport 
+  xmlns="http://jasperreports.sourceforge.net/jasperreports"   
+  name="Listadodeciclistas" orientation="Landscape" pageWidth="900">
+  <parameter name="titulo" class="java.lang.String"/>
+  <parameter name="autor" class="java.lang.String"/>
+  <parameter name="fecha" class="java.lang.String"/>
+  <queryString>
+		<![CDATA[select NOMBREEQUIPO, NOMBRECICLISTA, ROJO, VERDE, BLANCO, LUNARES, IMROJO, IMVERDE, IMBLANCO, IMLUNARES, TOTAL from EJERCICIOPDF]]>
+    </queryString>
+  
+  <field name="NOMBREEQUIPO" class="java.lang.String"/>
+  <field name="NOMBRECICLISTA" class="java.lang.String"/>  
+  <field name="ROJO" class="java.lang.Integer"/>
+  <field name="VERDE" class="java.lang.Integer"/>
+   <field name="BLANCO" class="java.lang.Integer"/>
+  <field name="LUNARES" class="java.lang.Integer"/>   
+  <field name="IMROJO" class="java.lang.String"/>
+  <field name="IMVERDE" class="java.lang.String"/>  
+  <field name="IMBLANCO" class="java.lang.String"/>
+  <field name="IMLUNARES" class="java.lang.String"/>
+  <field name="TOTAL" class="java.lang.String"/>
+  
+  <title>
+     <band height="60">
+	 <textField>
+		<reportElement x="0" y="10" width="800" height="40" />
+		<textElement textAlignment="Center"><font size="24"/>
+		</textElement>
+		<textFieldExpression><![CDATA[$P{titulo}]]>
+            </textFieldExpression>
+	 </textField>
+	 <textField>
+		<reportElement x="0" y="40" width="800" height="20" />
+		<textElement textAlignment="Center"/>
+		<textFieldExpression><![CDATA["Realizado por: " + $P{autor} +" on "+$P{fecha}]]></textFieldExpression>
+	   </textField>
+	</band>
+  </title>
+  
+  <columnHeader>
+	<band height="30">
+		<rectangle>
+			<reportElement x="0" y="0" width="850" height="25" />
+		</rectangle>
+		<staticText>
+			<reportElement x="5" y="5" width="100" height="15" />
+			<text><![CDATA[EQUIPO]]></text>
+		</staticText>
+		
+		<staticText>
+			<reportElement x="105" y="5" width="140" height="15" />
+			<text><![CDATA[CICLISTA]]></text>
+		</staticText>
+		
+		<staticText>
+               <reportElement x="245" y="5" width="35" height="15" />
+		   <text><![CDATA[NºRojo]]></text>
+		</staticText>
+		
+		<staticText>
+		   <reportElement x="280" y="5" width="35" height="15" />
+		   <text><![CDATA[NºVerde]]></text>
+		</staticText>
+		
+		<staticText>
+		   <reportElement x="315" y="5" width="35" height="15" />
+		   <text><![CDATA[NºBlanco]]></text>
+		</staticText>
+		
+		<staticText>
+		   <reportElement x="350" y="5" width="35" height="15" />
+		   <text><![CDATA[NºLunares]]></text>
+		</staticText>
+						
+			<staticText>
+		   <reportElement x="410" y="5" width="90" height="15" />
+		   <text><![CDATA[IMP Rojo]]></text>
+		</staticText>
+		<staticText>
+		   <reportElement x="490" y="5" width="90" height="15" />
+		   <text><![CDATA[IMP Verde]]></text>
+		</staticText>
+		<staticText>
+		   <reportElement x="580" y="5" width="90" height="15" />
+		   <text><![CDATA[IMP Blanco]]></text>
+		</staticText>
+		<staticText>
+		   <reportElement x="670" y="5" width="90" height="15" />
+		   <text><![CDATA[IMP Lunares]]></text>
+		</staticText>
+			
+			<staticText>
+		   <reportElement x="760" y="5" width="100" height="15" />
+		   <text><![CDATA[IMP TOTAL]]></text>
+		</staticText>			
+		
+	</band>
+   </columnHeader>
+   
+   <detail>
+	<band height="30">
+	   <textField>
+		<reportElement x="5" y="7" width="100" height="15" />
+		<textFieldExpression><![CDATA[$F{NOMBREEQUIPO}]]></textFieldExpression>
+	   </textField>
+	   <textField>
+		<reportElement x="105" y="7" width="140" height="15" />
+		<textFieldExpression><![CDATA[$F{NOMBRECICLISTA}]]></textFieldExpression>
+	   </textField>
+	   
+	   <textField>
+	   <reportElement x="255" y="5" width="35" height="15" />
+		<textFieldExpression><![CDATA[$F{ROJO}]]></textFieldExpression>
+	   </textField>	   
+	   <textField>
+		<reportElement x="290" y="5" width="35" height="15" />
+		<textFieldExpression><![CDATA[$F{VERDE}]]></textFieldExpression>
+	   </textField>	  
+	    <textField>
+		<reportElement x="325" y="5" width="35" height="15" />
+		<textFieldExpression><![CDATA[$F{BLANCO}]]></textFieldExpression>
+	   </textField>	 
+	    <textField>
+		<reportElement x="360" y="5" width="35" height="15" />
+		<textFieldExpression><![CDATA[$F{LUNARES}]]></textFieldExpression>
+	   </textField>	  
+	   
+	   
+	     <textField>
+		<reportElement x="400" y="5" width="90" height="15" />
+		<textFieldExpression><![CDATA[$F{IMROJO}]]></textFieldExpression>
+	   </textField>	 
+	   
+	   <textField>
+		<reportElement x="490" y="5" width="90" height="15" />
+		<textFieldExpression><![CDATA[$F{IMVERDE}]]></textFieldExpression>
+	   </textField>	   
+	   
+	  
+	   <textField>
+		<reportElement x="580" y="5" width="90" height="15" />
+		<textFieldExpression><![CDATA[$F{IMBLANCO}]]></textFieldExpression>
+	   </textField>	   
+	   
+	     <textField>
+		<reportElement x="670" y="5" width="90" height="15" />
+		<textFieldExpression><![CDATA[$F{IMLUNARES}]]></textFieldExpression>
+	   </textField>	   
+	   
+	   
+	        <textField>
+		<reportElement x="760" y="5" width="100" height="15" />
+		<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+	   </textField>	   
+	   
+	   
+	   
+	   
+	</band>
+  </detail>
+	
+  <pageFooter>
+	<band height="32">
+	  <line>
+		<reportElement positionType="FixRelativeToBottom" x="0" 
+                 y="3" width="850" height="1" />
+		<graphicElement>
+			<pen lineWidth="2.0" lineColor="#FF0000"/>
+		</graphicElement>
+	  </line>
+	  <textField>
+		<reportElement x="390" y="10" width="90" height="20" />
+		<textElement textAlignment="Right">
+				<font isBold="true" isItalic="true"/>
+		</textElement>
+		<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+
+			" de"]]></textFieldExpression>
+	  </textField>
+	  <textField evaluationTime="Report">
+		<reportElement x="480" y="10" width="40" height="20" />
+		<textElement>
+			<font isBold="true" isItalic="true"/>
+		</textElement>
+		<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]> 
+              </textFieldExpression>
+	</textField>
+    </band>
+  </pageFooter>
+  
+  <summary>
+	<band height="60">
+	  <rectangle>
+		<reportElement x="0" y="0" width="850" height="25" />
+	  </rectangle>
+	  <textField>
+		<reportElement x="10" y="5" width="300" height="15" />
+		<textElement textAlignment="Left"/>
+		<textFieldExpression><![CDATA["Total Registros: " + String.valueOf($V{REPORT_COUNT})]]>
+            </textFieldExpression>
+        </textField>
+	</band>
+  </summary>
+</jasperReport>
